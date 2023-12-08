@@ -17,7 +17,7 @@ router.get('/get/:id', (req, res, next) => {
 });
 
 router.get('/todo/all', (req, res, next) => {
-	let result = db.query(`SELECT foodOrder.idOrder, foodOrder.foodOrder, foodOrder.orderTime, foodOrder.done, tableHasOrder.idTable, waiter.name FROM foodOrder INNER JOIN tableHasOrder ON foodOrder.idOrder = tableHasOrder.idOrder INNER JOIN waiterHasTable ON tableHasOrder.idTable = waiterHasTable.idTable INNER JOIN waiter ON waiterHasTable.idWaiter = waiter.idWaiter WHERE foodOrder.done = 0;`);
+	let result = db.query(`SELECT foodOrder.idOrder, foodOrder.foodOrder, foodOrder.orderTime, foodOrder.done, tableHasOrder.idTable, waiter.name FROM foodOrder INNER JOIN tableHasOrder ON foodOrder.idOrder = tableHasOrder.idOrder INNER JOIN waiterHasTable ON tableHasOrder.idTable = waiterHasTable.idTable INNER JOIN waiter ON waiterHasTable.idWaiter = waiter.idWaiter WHERE foodOrder.done = 0 ORDER BY idOrder;`);
 	result.then( (value) => {res.json( value)})
   	.catch( (error) => {console.log( error )});
 });
@@ -60,6 +60,13 @@ router.put('/done/:id/:doneNr', (req, res, next) => {
 
 router.delete('/delete/:id', (req, res, next) => {
 	let result = db.query(`DELETE FROM foodOrder WHERE idOrder = ${req.params.id}`);
+	result.then( (value) => {res.json( value)})
+  	.catch( (error) => {console.log( error )});
+});
+
+router.delete('/reset/', (req, res) => {
+	db.query(`DELETE FROM foodOrder;`);
+	let result = db.query(`DELETE FROM tableHasOrder;`);
 	result.then( (value) => {res.json( value)})
   	.catch( (error) => {console.log( error )});
 });
