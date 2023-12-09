@@ -11,9 +11,9 @@ router.get('/info', (req, res) => {
 });
 
 router.put('/update/:name', (req, res) => {
-	let result = db.query(`UPDATE resturant name = "${req.params.name}";`);
-	result.then((value) => {res.json( value)})
-    .catch((error) => {console.log( error )});
+	let result = db.query(`UPDATE resturant SET name = "${req.params.name}";`);
+	result.then( (value) => {res.json( value)})
+  	.catch( (error) => {console.log( error )});
 });
 
 module.exports = router;
