@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+	"serve-build": "serve -l 4000 -s build --ssl-cert '/etc/ssl/cert/ducksdev_eu_fullchain.crt' --ssl-key '/etc/ssl/private/duckdev_eu.key'"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -14,6 +15,7 @@
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "nodemon": "^3.0.1",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "serve": "^14.2.1"
   }
 }
